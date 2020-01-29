@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "635100034194",
+    "firebase_url": "https://sih2020-2c07c.firebaseio.com",
+    "project_id": "sih2020-2c07c",
+    "storage_bucket": "sih2020-2c07c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:635100034194:android:f53010fcc56179d645e24b",
+        "android_client_info": {
+          "package_name": "com.example.newseye"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "635100034194-rph984bu364ldarcbujukvolu2b6he84.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtcm20oqAWaM8uHIJ0p0e9yDFflLZV0Ao"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "635100034194-rph984bu364ldarcbujukvolu2b6he84.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
