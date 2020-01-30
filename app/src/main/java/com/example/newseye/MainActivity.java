@@ -26,6 +26,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         firebaseAuth = FirebaseAuth.getInstance();
         currentUser = firebaseAuth.getCurrentUser();
+        if(currentUser==null)
+        {
+            startActivity(new Intent(MainActivity.this,LoginActivity.class));
+            finish();
+        }
         toolbar = findViewById(R.id.main_title);
         bottomBar = findViewById(R.id.bottomNavigation);
         bottomBar.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
