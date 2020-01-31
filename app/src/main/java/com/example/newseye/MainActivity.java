@@ -31,10 +31,10 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this,LoginActivity.class));
             finish();
         }
+        loadFragment(new HomeFragment());
         toolbar = findViewById(R.id.main_title);
         bottomBar = findViewById(R.id.bottomNavigation);
         bottomBar.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        loadFragment(new HomeFragment());
     }
 
     @Override
@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
         super.onBackPressed();
         finish();
     }
-
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 

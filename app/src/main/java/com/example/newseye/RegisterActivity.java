@@ -16,12 +16,14 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth;
     TextView login_here;
-    TextInputEditText register_email,register_password,register_confirm_password;
+    TextInputEditText register_name,register_email,register_password,register_confirm_password;
     MaterialCardView registerButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
                 finish();
             }
         });
+        register_name = findViewById(R.id.register_name);
         register_email = findViewById(R.id.register_email);
         register_password = findViewById(R.id.register_password);
         register_confirm_password = findViewById(R.id.register_confirm_password);
@@ -44,17 +47,18 @@ public class RegisterActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email,password,confirm_password;
+                String name,email,password,confirm_password;
+                name = register_name.getText().toString();
                 email = register_email.getText().toString();
                 password = register_password.getText().toString();
                 confirm_password = register_confirm_password.getText().toString();
                 if(password.equals(confirm_password))
-                    registerUser(email,password,confirm_password);
+                    registerUser(name,email,password,confirm_password);
             }
         });
     }
 
-    private void registerUser(String email, String password, String confirm_password) {
+    private void registerUser(final String name, String email, String password, String confirm_password) {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -62,8 +66,9 @@ public class RegisterActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
 //                            Log.d(TAG, "createUserWithEmail:success");
-//                            FirebaseUser user = firebaseAuth.getCurrentUser();
+                            FirebaseUser user = firebaseAuth.getCurrentUser();
                             Toast.makeText(RegisterActivity.this, "Successfully registered ", Toast.LENGTH_SHORT).show();
+                            dbUserEntry(name,user);
                             startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
                             finish();
 //                            updateUI(user);
@@ -78,5 +83,15 @@ public class RegisterActivity extends AppCompatActivity {
                         // ...
                     }
                 });
+    }
+
+    private void dbUserEntry(String name,FirebaseUser user) {
+         DatabaseReference mDatabase;
+         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid());
+         mDatabase.child("username").setValue(name);
+         mDatabase.child("userDp").setValue("Default");
+         mDatabase.child("articlesRead").setValue(0);
+         mDatabase.child("articlesShared").setValue(0);
+         mDatabase.child("favorites").setValue(0);
     }
 }
