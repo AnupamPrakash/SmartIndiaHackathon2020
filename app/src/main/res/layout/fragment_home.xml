@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center">
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/newsList"/>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Home"
-        android:id="@+id/text"
-        android:textSize="20sp"/>
-</ScrollView>
+        app:backgroundTint="@color/colorPrimaryDark"
+        android:id="@+id/fabRefresh"
+        android:layout_gravity="right|bottom"
+        android:layout_margin="25dp"
+        android:src="@drawable/ic_refresh_black_24dp"/>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
