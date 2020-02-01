@@ -1,5 +1,6 @@
 package com.example.newseye;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -35,6 +36,7 @@ import static android.app.Activity.RESULT_OK;
 
 public class AccountFragment extends Fragment {
     Button signOut;
+    ProgressDialog progressdialog;
     ImageView userDp;
     TextView txtname,txtread,txtshared,txtfav;
     private static int RESULT_LOAD_IMAGE = 1;
@@ -71,11 +73,15 @@ public class AccountFragment extends Fragment {
     }
 
     private void loadProfile(FirebaseUser currentUser) {
+        progressdialog = new ProgressDialog(getActivity());
+        progressdialog.setMessage("Loading...");
+        progressdialog.show();
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("users").child(currentUser.getUid());
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                Toast.makeText(getActivity(), ""+dataSnapshot.child("username").getValue(), Toast.LENGTH_SHORT).show();
+                    progressdialog.dismiss();
+//                  Toast.makeText(getActivity(), ""+dataSnapshot.child("username").getValue(), Toast.LENGTH_SHORT).show();
                     String name = (String) dataSnapshot.child("username").getValue();
                     String userDP = (String) dataSnapshot.child("userDp").getValue();
                     long artReads = (long) dataSnapshot.child("articlesRead").getValue();
