@@ -46,6 +46,38 @@
             android:textStyle="bold"
             android:gravity="center"/>
     </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_marginVertical="10dp"
+            app:cardCornerRadius="5dp"
+            android:layout_height="50dp"
+            app:cardElevation="2dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Department"
+                android:padding="10dp"
+                android:id="@+id/txt_department"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:gravity="center"/>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_marginVertical="10dp"
+            app:cardCornerRadius="5dp"
+            android:layout_height="50dp"
+            app:cardElevation="2dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Email"
+                android:padding="10dp"
+                android:id="@+id/txt_email"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:gravity="center"/>
+        </androidx.cardview.widget.CardView>
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="50dp"

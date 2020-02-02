@@ -38,8 +38,9 @@ public class AccountFragment extends Fragment {
     Button signOut;
     ProgressDialog progressdialog;
     ImageView userDp;
-    TextView txtname,txtread,txtshared,txtfav;
+    TextView txtname,txtdep,txtemail,txtread,txtshared,txtfav;
     private static int RESULT_LOAD_IMAGE = 1;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,6 +48,8 @@ public class AccountFragment extends Fragment {
         signOut = root.findViewById(R.id.sign_out);
         userDp = root.findViewById(R.id.user_dp);
         txtname = root.findViewById(R.id.txt_name);
+        txtdep = root.findViewById(R.id.txt_department);
+        txtemail = root.findViewById(R.id.txt_email);
         txtread = root.findViewById(R.id.txt_read);
         txtshared = root.findViewById(R.id.txtshared);
         txtfav = root.findViewById(R.id.txtFavs);
@@ -72,7 +75,7 @@ public class AccountFragment extends Fragment {
         return root;
     }
 
-    private void loadProfile(FirebaseUser currentUser) {
+    private void loadProfile(final FirebaseUser currentUser) {
         progressdialog = new ProgressDialog(getActivity());
         progressdialog.setMessage("Loading...");
         progressdialog.show();
@@ -84,6 +87,7 @@ public class AccountFragment extends Fragment {
 //                  Toast.makeText(getActivity(), ""+dataSnapshot.child("username").getValue(), Toast.LENGTH_SHORT).show();
                     String name = (String) dataSnapshot.child("username").getValue();
                     String userDP = (String) dataSnapshot.child("userDp").getValue();
+                    String userdep = (String) dataSnapshot.child("department").getValue();
                     long artReads = (long) dataSnapshot.child("articlesRead").getValue();
                     long artShared = (long) dataSnapshot.child("articlesShared").getValue();
                     long favorites = (long) dataSnapshot.child("favorites").getValue();
@@ -100,6 +104,8 @@ public class AccountFragment extends Fragment {
                         userDp.setImageBitmap(imageBitmap);
                     }
                     txtname.setText(name);
+                    txtdep.setText(userdep);
+                    txtemail.setText(currentUser.getEmail());
                     txtread.setText(""+artReads);
                     txtshared.setText(""+artShared);
                     txtfav.setText(""+favorites);

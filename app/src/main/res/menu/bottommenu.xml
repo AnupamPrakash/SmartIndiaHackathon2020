@@ -5,9 +5,9 @@
         android:icon="@drawable/ic_home_black_24dp"
         android:title="Home"/>
     <item
-        android:id="@+id/recent"
-        android:icon="@drawable/ic_history_black_24dp"
-        android:title="Recent"/>
+        android:id="@+id/favorite"
+        android:icon="@drawable/ic_favorite_border_black_24dp"
+        android:title="Favorites"/>
     <item
         android:id="@+id/account"
         android:icon="@drawable/ic_account_circle_black_24dp"

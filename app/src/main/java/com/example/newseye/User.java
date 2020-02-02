@@ -1,15 +1,23 @@
 package com.example.newseye;
 
-public class User {
-    String name,userId,email,photoURL;
+import android.content.Context;
 
-    public User(String name, String userId, String email, String photoURL) {
+import java.io.Serializable;
+
+public class User implements Serializable {
+    private static User user;
+    String name,userDP,department;
+    long artReads,artShared,favorites;
+
+    public User() {}
+    public User(String name, String userDP, String department, long artReads, long artShared, long favorites) {
         this.name = name;
-        this.userId = userId;
-        this.email = email;
-        this.photoURL = photoURL;
+        this.userDP = userDP;
+        this.department = department;
+        this.artReads = artReads;
+        this.artShared = artShared;
+        this.favorites = favorites;
     }
-
     public String getName() {
         return name;
     }
@@ -18,27 +26,43 @@ public class User {
         this.name = name;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getUserDP() {
+        return userDP;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUserDP(String userDP) {
+        this.userDP = userDP;
     }
 
-    public String getEmail() {
-        return email;
+    public String getDepartment() {
+        return department;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setDepartment(String department) {
+        this.department = department;
     }
 
-    public String getPhotoURL() {
-        return photoURL;
+    public long getArtReads() {
+        return artReads;
     }
 
-    public void setPhotoURL(String photoURL) {
-        this.photoURL = photoURL;
+    public void setArtReads(long artReads) {
+        this.artReads = artReads;
+    }
+
+    public long getArtShared() {
+        return artShared;
+    }
+
+    public void setArtShared(long artShared) {
+        this.artShared = artShared;
+    }
+
+    public long getFavorites() {
+        return favorites;
+    }
+
+    public void setFavorites(long favorites) {
+        this.favorites = favorites;
     }
 }

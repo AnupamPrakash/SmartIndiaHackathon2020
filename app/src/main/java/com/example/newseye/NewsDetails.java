@@ -8,22 +8,34 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class NewsDetails extends AppCompatActivity {
 
     TextView newsContent;
     ImageView newsDp;
+    int count;
     Toolbar toolbar;
     ImageView favorite,share,link;
+//    User userAccount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_details);
         final Article article = (Article) getIntent().getSerializableExtra("Article");
+        count = (int) getIntent().getIntExtra("Count",1);
         newsContent = findViewById(R.id.textcard);
+        FirebaseAuth firebaseAuth;
+        firebaseAuth = FirebaseAuth.getInstance();
+        final FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         newsDp = findViewById(R.id.toolbar_image);
         toolbar = findViewById(R.id.AppBar);
         favorite = findViewById(R.id.mark_favorite);
@@ -45,6 +57,23 @@ public class NewsDetails extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        if(count==1) {
+            favorite.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+            favorite.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DatabaseReference mDatabase;
+                    mDatabase = FirebaseDatabase.getInstance().getReference().child("favorites").child(currentUser.getUid());
+                    mDatabase.push().setValue(article);
+                    favorite.setImageResource(R.drawable.ic_favorite_black_24dp);
+                }
+            });
+        }
+        else if(count==2)
+        {
+            favorite.setImageResource(R.drawable.ic_favorite_black_24dp);
+        }
+
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,6 +81,7 @@ public class NewsDetails extends AppCompatActivity {
                 intent.setType("text/plain");
                 intent.putExtra(Intent.EXTRA_TEXT,"Checkout this latest news update :"+article.getUrl()+"/");
                 startActivity(Intent.createChooser(intent,"Share Event via"));
+//                startActivity(new Intent(NewsDetails.this,ShareActivity.class));
             }
         });
     }
