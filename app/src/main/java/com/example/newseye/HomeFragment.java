@@ -1,6 +1,10 @@
 package com.example.newseye;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +22,7 @@ import com.google.gson.GsonBuilder;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,10 +45,29 @@ public class HomeFragment extends Fragment {
             }
         });
         displayData();
+        loadNotification(getActivity());
         return root;
     }
 
-    private void displayData() {
+    private void loadNotification(Context context) {
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(context)
+                        .setSmallIcon(R.drawable.logo) //set icon for notification
+                        .setContentTitle("New Article") //set title of notification
+                        .setContentText("Open to view the new Articles");//this is notification message
+
+        Intent notificationIntent = new Intent(context,MainActivity.class);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(pendingIntent);
+
+        // Add as notification
+        NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify(0, builder.build());
+    }
+
+    public void displayData() {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, new NetworkHandler().getURL(),
                 new Response.Listener<String>() {
                     @Override
