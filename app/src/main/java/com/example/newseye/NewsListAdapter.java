@@ -1,6 +1,7 @@
 package com.example.newseye;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import java.io.Serializable;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -42,10 +44,11 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.DataVi
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Clicked: "+article.getTitle(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "Clicked: "+article.getTitle(), Toast.LENGTH_SHORT).show();
 //                Toast.makeText(context, dataCard.getFields().getName()+" is clicked", Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(context,DetailsActivity.class).putExtra("Data",dataCard.getFields());
-//                context.startActivity(intent);
+                Intent intent = new Intent(context,NewsDetails.class).putExtra("Article",article);
+                context.startActivity(intent);
+//                context.startActivity(new Intent(context,NewsDetails.class));
             }
         });
     }
