@@ -3,11 +3,13 @@ package com.example.newseye;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -43,11 +45,29 @@ public class HomeFragment extends Fragment {
             }
         });
         displayData();
-        loadNotification();
+        loadNotification(getActivity());
         return root;
     }
 
-    private void displayData() {
+    private void loadNotification(Context context) {
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(context)
+                        .setSmallIcon(R.drawable.logo) //set icon for notification
+                        .setContentTitle("New Article") //set title of notification
+                        .setContentText("Open to view the new Articles");//this is notification message
+
+        Intent notificationIntent = new Intent(context,MainActivity.class);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(pendingIntent);
+
+        // Add as notification
+        NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify(0, builder.build());
+    }
+
+    public void displayData() {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, new NetworkHandler().getURL(),
                 new Response.Listener<String>() {
                     @Override
@@ -72,20 +92,5 @@ public class HomeFragment extends Fragment {
         progressdialog.setMessage("Loading...");
         progressdialog.show();
     }
-    private void loadNotification() {
-        NotificationCompat.Builder builder =
-                new NotificationCompat.Builder(getActivity())
-                        .setSmallIcon(R.drawable.logo)
-                        .setContentTitle("NewsEye Alert.")
-                        .setContentText("Welcome back!");
 
-        Intent notificationIntent = new Intent(getActivity(), MainActivity.class);
-        PendingIntent contentIntent = PendingIntent.getActivity(getActivity(), 0, notificationIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-        builder.setContentIntent(contentIntent);
-
-        // Add as notification
-        NotificationManager manager = (NotificationManager) getActivity().getSystemService(getActivity().NOTIFICATION_SERVICE);
-        manager.notify(0, builder.build());
-    }
 }
