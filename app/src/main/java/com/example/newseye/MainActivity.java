@@ -7,6 +7,8 @@ import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.graphics.Bitmap;
 import android.content.SharedPreferences;
 import android.os.Build;
