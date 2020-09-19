@@ -1,5 +1,6 @@
 package com.example.newseye;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -15,8 +16,11 @@ import androidx.appcompat.widget.Toolbar;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class NewsDetails extends AppCompatActivity {
 
@@ -52,6 +56,21 @@ public class NewsDetails extends AppCompatActivity {
         link.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final DatabaseReference dbref = FirebaseDatabase.getInstance().getReference().child("user").child(currentUser.getUid());
+                ValueEventListener valueEventListener = new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        long currFav = (long) dataSnapshot.child("articlesRead").getValue();
+                        currFav+=1;
+                        dbref.child("articlesRead").setValue(currFav);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                };
+                dbref.addListenerForSingleValueEvent(valueEventListener);
                 Intent intent = new Intent("android.intent.action.VIEW",
                         Uri.parse(article.getUrl()));
                 startActivity(intent);
@@ -66,6 +85,21 @@ public class NewsDetails extends AppCompatActivity {
                     mDatabase = FirebaseDatabase.getInstance().getReference().child("favorites").child(currentUser.getUid());
                     mDatabase.push().setValue(article);
                     favorite.setImageResource(R.drawable.ic_favorite_black_24dp);
+                    final DatabaseReference dbref = FirebaseDatabase.getInstance().getReference().child("user").child(currentUser.getUid());
+                    ValueEventListener valueEventListener = new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            long currFav = (long) dataSnapshot.child("favorites").getValue();
+                            currFav+=1;
+                            dbref.child("favorites").setValue(currFav);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    };
+                    dbref.addListenerForSingleValueEvent(valueEventListener);
                 }
             });
         }
@@ -82,6 +116,21 @@ public class NewsDetails extends AppCompatActivity {
                 intent.putExtra(Intent.EXTRA_TEXT,"Checkout this latest news update :"+article.getUrl()+"/");
                 startActivity(Intent.createChooser(intent,"Share Event via"));
 //                startActivity(new Intent(NewsDetails.this,ShareActivity.class));
+                final DatabaseReference dbref = FirebaseDatabase.getInstance().getReference().child("user").child(currentUser.getUid());
+                ValueEventListener valueEventListener = new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        long currFav = (long) dataSnapshot.child("articlesShared").getValue();
+                        currFav+=1;
+                        dbref.child("articlesShared").setValue(currFav);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                };
+                dbref.addListenerForSingleValueEvent(valueEventListener);
             }
         });
     }

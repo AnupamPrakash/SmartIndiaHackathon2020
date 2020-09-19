@@ -79,12 +79,13 @@ public class AccountFragment extends Fragment {
         progressdialog = new ProgressDialog(getActivity());
         progressdialog.setMessage("Loading...");
         progressdialog.show();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("users").child(currentUser.getUid());
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("user").child(currentUser.getUid());
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     progressdialog.dismiss();
 //                  Toast.makeText(getActivity(), ""+dataSnapshot.child("username").getValue(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), ""+dataSnapshot.toString(), Toast.LENGTH_SHORT).show();
                     String name = (String) dataSnapshot.child("username").getValue();
                     String userDP = (String) dataSnapshot.child("userDp").getValue();
                     String userdep = (String) dataSnapshot.child("department").getValue();
@@ -114,7 +115,7 @@ public class AccountFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {}
         };
-        ref.addListenerForSingleValueEvent(valueEventListener);
+        ref.addValueEventListener(valueEventListener);
     }
 
     @Override
@@ -138,7 +139,7 @@ public class AccountFragment extends Fragment {
         String imageEncoded = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
         DatabaseReference ref = FirebaseDatabase.getInstance()
                 .getReference()
-                .child("users")
+                .child("user")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
         ref.child("userDp").setValue(imageEncoded);
     }

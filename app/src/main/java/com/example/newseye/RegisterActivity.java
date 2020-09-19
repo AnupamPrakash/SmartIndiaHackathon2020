@@ -89,7 +89,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void dbUserEntry(String name, String department, FirebaseUser user) {
          DatabaseReference mDatabase;
-         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid());
+         mDatabase = FirebaseDatabase.getInstance().getReference().child("user").child(user.getUid());
          mDatabase.child("username").setValue(name);
          mDatabase.child("department").setValue(department);
          mDatabase.child("userDp").setValue("Default");
