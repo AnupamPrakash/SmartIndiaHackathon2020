@@ -6,12 +6,12 @@ Designing a mobile information application for "The Department of Financial Serv
 # Inspiration
 Inspiration for this project came from the Smart India Hackathon 2020 problem statement. The idea behind this project was to build a mobile application which could enable concerned officials about financial news updates.
 # Working Model
-The working model of this project is divided into three sections.
-Maintaining user details and authentication.
-Fetching current financial news as soon as they bubble up.
-Managing news articles and storing them on the server.
-Broadcasting news articles to concerned people.
-Maintaining shared and favourite articles as per user for a personalised experience.
+The working model of this project is divided into five sections.
+- Maintaining user details and authentication.
+- Fetching current financial news as soon as they bubble up.
+- Managing news articles and storing them on the server.
+- Broadcasting news articles to concerned people.
+- Maintaining shared and favourite articles as per user for a personalised experience.
 # Implementation
 The implementation of this project is done using Android, NewsAPI and Google Firebase. 
 Following is the explanation at each stage of how the implementation is done.
