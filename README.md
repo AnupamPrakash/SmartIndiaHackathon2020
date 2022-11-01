@@ -1,4 +1,4 @@
-# SmartIndiaHackathon2020
+# News Eye
 <img width="625" alt="news-eye" src="https://user-images.githubusercontent.com/31325068/199163739-d984cf97-910f-49a4-9d93-23d3e3182ddf.png">
 
 # Problem Statement
